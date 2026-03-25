@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "../theme";
+import ColorModeProvider from "../components/ColorModeProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -36,7 +35,7 @@ export default function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable}`}>
       <body>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ColorModeProvider>{children}</ColorModeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
