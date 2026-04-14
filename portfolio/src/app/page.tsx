@@ -4,15 +4,17 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProjectCard from '../components/ProjectCard';
 import Grid from '@mui/material/Grid';
-import TechStackScroller from '../components/TechStackScroller';
+import Hero from '../components/Hero';
+import Toolbar from '@mui/material/Toolbar';
 
 export default function Home() {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Header />
+      <Toolbar />
+      <Hero />
       <Container component="main" sx={{ flex: 1, py: 4 }}>
         {/* Your content goes here */}
-        <TechStackScroller />
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <ProjectCard
