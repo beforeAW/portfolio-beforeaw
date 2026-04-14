@@ -13,13 +13,31 @@ export default function Home() {
         {/* Your content goes here */}
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-            <ProjectCard title="My Project" description="A short description." link="https://github.com/..." />
+            <ProjectCard
+              title="My Project"
+              description="A short description."
+              techStack={['React', 'TypeScript']}
+              link="https://myproject.com"
+              githubLink="https://github.com/username/repo"
+            />
           </Grid>
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-            <ProjectCard title="My Project" description="A short description." link="https://github.com/..." />
+            <ProjectCard
+              title="My Project"
+              description="A short description."
+              techStack={['React', 'TypeScript']}
+              link="https://myproject.com"
+              githubLink="https://github.com/username/repo"
+            />
           </Grid>
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-            <ProjectCard title="My Project" description="A short description." link="https://github.com/..." />
+            <ProjectCard
+              title="My Project"
+              description="A short description."
+              techStack={['React', 'TypeScript']}
+              link="https://myproject.com"
+              githubLink="https://github.com/username/repo"
+            />
           </Grid>
         </Grid>
       </Container>
