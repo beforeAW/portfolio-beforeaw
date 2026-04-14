@@ -14,6 +14,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import MenuIcon from '@mui/icons-material/Menu';
+import Image from 'next/image';
 import { useColorMode } from './ColorModeProvider';
 
 const navLinks = [
@@ -29,9 +30,12 @@ export default function Header() {
   return (
     <AppBar position="fixed" color="default" elevation={1}>
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          albinwrebo.dev
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexGrow: 1 }}>
+          <Image src="/AW-logo.png" alt="AW logo" width={36} height={36} />
+          <Typography variant="h6" component="div">
+            albinwrebo.dev
+          </Typography>
+        </Box>
 
         {/* Desktop nav */}
         <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', gap: 1 }}>
