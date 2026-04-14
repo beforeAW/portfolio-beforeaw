@@ -21,6 +21,17 @@ const sharedSettings = {
     info: { main: '#0288d1' },
     success: { main: '#2e7d32' },
   },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          background: 'linear-gradient(135deg, #f5f5f5 0%, #e3f2fd 50%, #f5f5f5 100%)',
+          backgroundAttachment: 'fixed',
+          minHeight: '100vh',
+        },
+      },
+    },
+  },
 };
 
 export const lightTheme = createTheme({
@@ -51,6 +62,17 @@ export const darkTheme = createTheme({
     text: {
       primary: '#ffffff',
       secondary: '#aaaaaa',
+    },
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          background: 'linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 50%, #0d0d0d 100%)',
+          backgroundAttachment: 'fixed',
+          minHeight: '100vh',
+        },
+      },
     },
   },
 });

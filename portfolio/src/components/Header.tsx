@@ -27,7 +27,7 @@ export default function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <AppBar position="static" color="default" elevation={1}>
+    <AppBar position="fixed" color="default" elevation={1}>
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           albinwrebo.dev
