@@ -30,7 +30,11 @@ export default function Header() {
   return (
     <AppBar position="fixed" color="default" elevation={1}>
       <Toolbar>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexGrow: 1 }}>
+        <Box
+          component="a"
+          href="#"
+          sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexGrow: 1, textDecoration: 'none', color: 'inherit' }}
+        >
           <Image src="/AW-logo.png" alt="AW logo" width={36} height={36} />
           <Typography variant="h6" component="div">
             albinwrebo.dev
