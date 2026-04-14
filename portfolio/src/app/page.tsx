@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import ProjectCard from '../components/ProjectCard';
 import Grid from '@mui/material/Grid';
 import Hero from '../components/Hero';
+import About from '../components/About';
 import Toolbar from '@mui/material/Toolbar';
 
 export default function Home() {
@@ -14,7 +15,8 @@ export default function Home() {
       <Toolbar />
       <Hero />
       <Container component="main" sx={{ flex: 1, py: 4 }}>
-        {/* Your content goes here */}
+        <About />
+        <Box id="projects">
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <ProjectCard
@@ -44,6 +46,7 @@ export default function Home() {
             />
           </Grid>
         </Grid>
+        </Box>
       </Container>
       <Footer />
     </Box>
