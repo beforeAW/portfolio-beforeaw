@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model CmsContent {
+  id        Int      @id @default(1)
+  data      Json
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("cms_content")
+}

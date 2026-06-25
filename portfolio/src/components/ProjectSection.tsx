@@ -3,32 +3,13 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import ProjectCard from './ProjectCard';
+import type { ProjectContent } from '@/lib/cms/schema';
 
-const projects = [
-  {
-    title: 'My Project',
-    description: 'A short description.',
-    techStack: ['React', 'TypeScript'],
-    link: 'https://myproject.com',
-    githubLink: 'https://github.com/username/repo',
-  },
-  {
-    title: 'My Project',
-    description: 'A short description.',
-    techStack: ['React', 'TypeScript'],
-    link: 'https://myproject.com',
-    githubLink: 'https://github.com/username/repo',
-  },
-  {
-    title: 'My Project',
-    description: 'A short description.',
-    techStack: ['React', 'TypeScript'],
-    link: 'https://myproject.com',
-    githubLink: 'https://github.com/username/repo',
-  },
-];
+interface ProjectSectionProps {
+  projects: ProjectContent[];
+}
 
-export default function ProjectSection() {
+export default function ProjectSection({ projects }: ProjectSectionProps) {
   return (
     <Box
       id="projects"

@@ -23,7 +23,11 @@ const navLinks = [
   { label: 'Contact', href: '#contact' },
 ];
 
-export default function Header() {
+interface HeaderProps {
+  siteName: string;
+}
+
+export default function Header({ siteName }: HeaderProps) {
   const { mode, toggleColorMode } = useColorMode();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -37,7 +41,7 @@ export default function Header() {
         >
           <Image src="/AW-logo.png" alt="AW logo" width={36} height={36} />
           <Typography variant="h6" component="div">
-            albinwrebo.dev
+            {siteName}
           </Typography>
         </Box>
 

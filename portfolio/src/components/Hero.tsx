@@ -2,43 +2,57 @@
 import { useState, useEffect, useMemo } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import { SiGithub } from 'react-icons/si';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import IconButton from '@mui/material/IconButton';
 import TechStackScroller from './TechStackScroller';
+import type { HeroContent } from '@/lib/cms/schema';
 
 type Token = { text: string; color: string };
 
-const tokens: Token[] = [
-  { text: 'const ', color: '#569cd6' },
-  { text: 'developer', color: '#4fc1ff' },
-  { text: ' = {\n', color: '#d4d4d4' },
-  { text: '  name', color: '#9cdcfe' },
-  { text: ': ', color: '#d4d4d4' },
-  { text: '"Albin Wrebo"', color: '#ce9178' },
-  { text: ',\n', color: '#d4d4d4' },
-  { text: '  title', color: '#9cdcfe' },
-  { text: ': ', color: '#d4d4d4' },
-  { text: '"Full Stack Developer"', color: '#ce9178' },
-  { text: ',\n', color: '#d4d4d4' },
-  { text: '  available', color: '#9cdcfe' },
-  { text: ': ', color: '#d4d4d4' },
-  { text: 'true', color: '#569cd6' },
-  { text: ',\n', color: '#d4d4d4' },
-  { text: '  hobbies', color: '#9cdcfe' },
-  { text: ': [', color: '#d4d4d4' },
-  { text: '"Drums"', color: '#ce9178' },
-  { text: ', ', color: '#d4d4d4' },
-  { text: '"Scouting"', color: '#ce9178' },
-  { text: '],\n', color: '#d4d4d4' },
-  { text: '};', color: '#d4d4d4' },
-];
+interface HeroProps {
+  hero: HeroContent;
+}
 
-export default function Hero() {
-  const totalChars = useMemo(() => tokens.reduce((sum, t) => sum + t.text.length, 0), []);
+export default function Hero({ hero }: HeroProps) {
+  const tokens = useMemo<Token[]>(() => {
+    const hobbyTokens = hero.hobbies.flatMap((hobby, index) => {
+      const parts: Token[] = [];
+
+      if (index > 0) {
+        parts.push({ text: ', ', color: '#d4d4d4' });
+      }
+
+      parts.push({ text: `"${hobby}"`, color: '#ce9178' });
+      return parts;
+    });
+
+    return [
+      { text: 'const ', color: '#569cd6' },
+      { text: 'developer', color: '#4fc1ff' },
+      { text: ' = {\n', color: '#d4d4d4' },
+      { text: '  name', color: '#9cdcfe' },
+      { text: ': ', color: '#d4d4d4' },
+      { text: `"${hero.name}"`, color: '#ce9178' },
+      { text: ',\n', color: '#d4d4d4' },
+      { text: '  title', color: '#9cdcfe' },
+      { text: ': ', color: '#d4d4d4' },
+      { text: `"${hero.title}"`, color: '#ce9178' },
+      { text: ',\n', color: '#d4d4d4' },
+      { text: '  available', color: '#9cdcfe' },
+      { text: ': ', color: '#d4d4d4' },
+      { text: hero.available ? 'true' : 'false', color: '#569cd6' },
+      { text: ',\n', color: '#d4d4d4' },
+      { text: '  hobbies', color: '#9cdcfe' },
+      { text: ': [', color: '#d4d4d4' },
+      ...hobbyTokens,
+      { text: '],\n', color: '#d4d4d4' },
+      { text: '};', color: '#d4d4d4' },
+    ];
+  }, [hero.available, hero.hobbies, hero.name, hero.title]);
+
+  const totalChars = useMemo(() => tokens.reduce((sum, token) => sum + token.text.length, 0), [tokens]);
   const [visibleChars, setVisibleChars] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
 
@@ -100,7 +114,7 @@ export default function Hero() {
           WebkitTextFillColor: 'transparent',
         }}
       >
-        Albin Wrebo
+        {hero.name}
       </Typography>
 
       {/* Code block */}
@@ -158,10 +172,10 @@ export default function Hero() {
           animation: 'fadeSlideUp 0.6s ease forwards 1.1s',
         }}
       >
-        <IconButton href="https://github.com/albinwrebo" target="_blank" rel="noopener noreferrer" aria-label="GitHub" size="large">
+        <IconButton href={hero.githubUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub" size="large">
           <SiGithub />
         </IconButton>
-        <IconButton href="https://linkedin.com/in/albinwrebo" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" size="large" color="primary">
+        <IconButton href={hero.linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" size="large" color="primary">
           <LinkedInIcon fontSize="inherit" />
         </IconButton>
       </Box>
