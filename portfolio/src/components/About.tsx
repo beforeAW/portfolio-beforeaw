@@ -4,16 +4,13 @@ import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 import DownloadIcon from '@mui/icons-material/Download';
+import type { AboutContent } from '@/lib/cms/schema';
 
-const highlights = [
-  'Based in Sweden',
-  'Open to work',
-  'Full Stack Developer',
-  'Audio Engineer',
-  'Scout Leader',
-];
+interface AboutProps {
+  about: AboutContent;
+}
 
-export default function About() {
+export default function About({ about }: AboutProps) {
   return (
     <Box
       id="about"
@@ -72,25 +69,21 @@ export default function About() {
             flexDirection: 'column',
           }}
         >
-          AW
+          {about.avatarInitials}
         </Box>
 
         {/* Text content */}
         <Box sx={{ flex: 1 }}>
           <Typography variant="body1" color="text.secondary" mb={2} lineHeight={1.8}>
-            I&apos;m a passionate full stack developer based in Sweden with a love for building
-            clean, performant web applications. I enjoy working across the entire stack — from
-            designing databases to crafting polished UIs.
+            {about.intro}
           </Typography>
           <Typography variant="body1" color="text.secondary" mb={3} lineHeight={1.8}>
-            Outside of coding, I play drums and am actively involved in scouting as a leader.
-            These experiences have shaped how I approach teamwork, problem-solving, and
-            leadership in my professional life.
+            {about.details}
           </Typography>
 
           {/* Highlights */}
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
-            {highlights.map((item) => (
+            {about.highlights.map((item) => (
               <Chip key={item} label={item} variant="outlined" color="primary" size="small" />
             ))}
           </Box>
@@ -98,7 +91,7 @@ export default function About() {
           <Button
             variant="outlined"
             startIcon={<DownloadIcon />}
-            href="/cv.pdf"
+            href={about.cvUrl}
             target="_blank"
             rel="noopener noreferrer"
           >

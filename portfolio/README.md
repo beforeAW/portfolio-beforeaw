@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio with Supabase + Prisma CMS
 
-## Getting Started
+This project is a Next.js portfolio with a custom CMS backed by Supabase Postgres and Prisma.
 
-First, run the development server:
+## Setup
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Copy environment template and fill values:
+
+```bash
+cp .env.example .env.local
+```
+
+Required values:
+
+- `DATABASE_URL`
+- `DIRECT_URL`
+- `CMS_ADMIN_TOKEN`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+3. Run the SQL bootstrap script in Supabase (creates `cms_content`):
+
+- Open SQL Editor in Supabase.
+- Run [supabase/schema.sql](supabase/schema.sql).
+
+4. Start dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Generate Prisma client:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run prisma:generate
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+6. Sync Prisma schema to your Supabase database when needed:
 
-## Learn More
+```bash
+npm run prisma:push
+```
 
-To learn more about Next.js, take a look at the following resources:
+## CMS Usage
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Public portfolio reads content from `public.cms_content` (row with `id = 1`).
+- Content queries and updates are handled by Prisma ORM.
+- Admin editor is available at `/admin` and is protected behind login.
+- Login page is available at `/login`.
+- Login uses `CMS_ADMIN_TOKEN` as the admin password and creates an HTTP-only session cookie.
+- API endpoints:
+	- `GET /api/content`
+	- `PUT /api/content` (requires valid admin session or `x-cms-token` header)
+	- `POST /api/admin/login`
+	- `POST /api/admin/logout`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Code Map
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- CMS schema and normalization: [src/lib/cms/schema.ts](src/lib/cms/schema.ts)
+- Prisma client: [src/lib/prisma.ts](src/lib/prisma.ts)
+- Prisma schema: [prisma/schema.prisma](prisma/schema.prisma)
+- Content data layer: [src/lib/cms/content.ts](src/lib/cms/content.ts)
+- API route: [src/app/api/content/route.ts](src/app/api/content/route.ts)
+- Admin UI: [src/components/CmsAdmin.tsx](src/components/CmsAdmin.tsx)
+- Admin page: [src/app/admin/page.tsx](src/app/admin/page.tsx)

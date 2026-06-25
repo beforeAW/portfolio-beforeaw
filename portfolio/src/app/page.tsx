@@ -6,18 +6,23 @@ import Hero from '../components/Hero';
 import About from '../components/About';
 import ProjectSection from '../components/ProjectSection';
 import Toolbar from '@mui/material/Toolbar';
+import { unstable_noStore as noStore } from 'next/cache';
+import { readSiteContent } from '@/lib/cms/content';
 
-export default function Home() {
+export default async function Home() {
+  noStore();
+  const content = await readSiteContent();
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <Header />
+      <Header siteName={content.site.siteName} />
       <Toolbar />
-      <Hero />
+      <Hero hero={content.hero} />
       <Container component="main" sx={{ flex: 1, py: 4 }}>
-        <About />
-        <ProjectSection />
+        <About about={content.about} />
+        <ProjectSection projects={content.projects} />
       </Container>
-      <Footer />
+      <Footer copyrightName={content.footer.copyrightName} />
     </Box>
   );
 }
